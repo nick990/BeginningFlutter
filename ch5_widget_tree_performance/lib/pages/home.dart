@@ -18,11 +18,11 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                _buildHorizontalRow(),
+                const RowWidget(),
                 Padding(
                   padding: EdgeInsets.all(16.0),
                 ),
-                _buildRowAndColumn(),
+                const RowAndColumnWidget(),
               ],
             ),
           ),
@@ -30,8 +30,15 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
 
-  Row _buildRowAndColumn() {
+class RowAndColumnWidget extends StatelessWidget {
+  const RowAndColumnWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         Column(
@@ -60,7 +67,7 @@ class _HomeState extends State<Home> {
               width: 20.0,
             ),
             Divider(),
-            _buildRowAndStack(),
+            const RowAndStackWidget(),
             Divider(),
             Text('End of the Line'),
           ],
@@ -68,8 +75,15 @@ class _HomeState extends State<Home> {
       ],
     );
   }
+}
 
-  Row _buildRowAndStack() {
+class RowAndStackWidget extends StatelessWidget {
+  const RowAndStackWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         CircleAvatar(
@@ -98,8 +112,15 @@ class _HomeState extends State<Home> {
       ],
     );
   }
+}
 
-  Row _buildHorizontalRow() {
+class RowWidget extends StatelessWidget {
+  const RowWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         Container(

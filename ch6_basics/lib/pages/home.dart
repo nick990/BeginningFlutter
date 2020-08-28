@@ -25,17 +25,7 @@ class _HomeState extends State<Home> {
         flexibleSpace: SafeArea(
           child: Icon(Icons.photo_camera, size: 75.0, color: Colors.white70),
         ),
-        bottom: PreferredSize(
-          child: Container(
-            color: Colors.lightGreen.shade100,
-            height: 75.0,
-            width: double.infinity,
-            child: Center(
-              child: Text('Bottom'),
-            ),
-          ),
-          preferredSize: Size.fromHeight(75.0),
-        ),
+        bottom: PopupMenuButtonWidget(),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -206,4 +196,61 @@ class ColumnAndRowNestingWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+class TodoMenuItem {
+  final String title;
+  final Icon icon;
+  TodoMenuItem({this.title, this.icon});
+}
+
+List<TodoMenuItem> foodMenuList = [
+  TodoMenuItem(title: 'Fast Food', icon: Icon(Icons.fastfood)),
+  TodoMenuItem(title: 'Remind me', icon: Icon(Icons.add_alarm)),
+  TodoMenuItem(title: 'Flight', icon: Icon(Icons.flight)),
+  TodoMenuItem(title: 'Music', icon: Icon(Icons.audiotrack)),
+];
+
+class PopupMenuButtonWidget extends StatelessWidget
+    implements PreferredSizeWidget {
+  const PopupMenuButtonWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.lightGreen.shade100,
+      height: preferredSize.height,
+      width: double.infinity,
+      child: Center(
+        child: PopupMenuButton<TodoMenuItem>(
+          icon: Icon(Icons.view_list),
+          onSelected: ((valueSelected) {
+            print('valueSelected: ${valueSelected.title}');
+          }),
+          itemBuilder: (BuildContext context) {
+            return foodMenuList.map((TodoMenuItem todoMenuItem) {
+              return PopupMenuItem<TodoMenuItem>(
+                value: todoMenuItem,
+                child: Row(
+                  children: <Widget>[
+                    Icon(todoMenuItem.icon.icon),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                    ),
+                    Text(todoMenuItem.title),
+                  ],
+                ),
+              );
+            }).toList();
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(75.0);
 }

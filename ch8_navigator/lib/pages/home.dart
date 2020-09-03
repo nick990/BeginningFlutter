@@ -1,4 +1,5 @@
 import 'package:ch8_navigator/pages/about.dart';
+import 'package:ch8_navigator/pages/gratitude.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -33,7 +34,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _opePageGratitude(context: context),
+        onPressed: () => _openPageGratitude(context: context),
         tooltip: 'About',
         child: Icon(Icons.sentiment_satisfied),
       ),
@@ -49,5 +50,13 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  _opePageGratitude({BuildContext context}) {}
+  _openPageGratitude(
+      {BuildContext context, bool fullscreenDialog = false}) async {
+    final String _gratitudeResponse = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            fullscreenDialog: fullscreenDialog,
+            builder: (context) => Gratitude(radioGroupValue: -1)));
+    _howAreYou = _gratitudeResponse ?? '';
+  }
 }
